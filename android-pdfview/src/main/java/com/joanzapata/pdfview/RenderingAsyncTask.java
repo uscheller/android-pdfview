@@ -34,7 +34,7 @@ class RenderingAsyncTask extends AsyncTask<Void, PagePart, Void> {
 
     private DecodeService decodeService;
 
-    private List<RenderingTask> renderingTasks;
+    private final List<RenderingTask> renderingTasks;
 
     private PDFView pdfView;
 

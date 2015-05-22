@@ -15,8 +15,11 @@ public class PathFromUri
         final Cursor cursor = resolver.query(uri, new String[]{"_data"}, null, null, null);
         if (cursor.moveToFirst())
         {
-            return cursor.getString(0);
+            String s = cursor.getString(0);
+            cursor.close();
+            return s;
+        } else {
+            throw new RuntimeException("Can't retrieve path from uri: " + uri.toString());
         }
-        throw new RuntimeException("Can't retrieve path from uri: " + uri.toString());
     }
 }
