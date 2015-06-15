@@ -195,9 +195,6 @@ public class PDFView extends SurfaceView {
         paint = new Paint();
         debugPaint = new Paint();
         debugPaint.setStyle(Style.STROKE);
-        maskPaint = new Paint();
-        maskPaint.setColor(Color.BLACK);
-        maskPaint.setAlpha(Constants.MASK_ALPHA);
         paintMinimapBack = new Paint();
         paintMinimapBack.setStyle(Style.FILL);
         paintMinimapBack.setColor(Color.BLACK);
@@ -999,6 +996,10 @@ public class PDFView extends SurfaceView {
         
         private boolean swipeVertical = false;
 
+        private int maskColor = Color.BLACK;
+
+        private int maskAlpha = Constants.MASK_ALPHA;
+
         private Configurator(Uri uri) {
             this.uri = uri;
         }
@@ -1038,6 +1039,17 @@ public class PDFView extends SurfaceView {
             return this;
         }
 
+        /**
+         * @param maskColor - mask color (default Color.BLACK)
+         * @param maskAlpha - alpha value in [0,255] (default 20)
+         * @return
+         */
+        public Configurator mask(int maskColor, int maskAlpha) {
+            this.maskColor = maskColor;
+            this.maskAlpha = maskAlpha;
+            return this;
+        }
+
         public void load() {
             PDFView.this.recycle();
             PDFView.this.setOnDrawListener(onDrawListener);
@@ -1047,6 +1059,9 @@ public class PDFView extends SurfaceView {
             PDFView.this.setUserWantsMinimap(showMinimap);
             PDFView.this.setSwipeVertical(swipeVertical);
             PDFView.this.dragPinchManager.setSwipeVertical(swipeVertical);
+            PDFView.this.maskPaint = new Paint();
+            PDFView.this.maskPaint.setColor(maskColor);
+            PDFView.this.maskPaint.setAlpha(maskAlpha);
             if (pageNumbers != null) {
                 PDFView.this.load(uri, onLoadCompleteListener, pageNumbers);
             } else {
