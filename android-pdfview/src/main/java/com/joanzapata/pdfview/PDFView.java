@@ -282,7 +282,11 @@ public class PDFView extends SurfaceView {
     public void enableSwipe(boolean enableSwipe) {
         dragPinchManager.setSwipeEnabled(enableSwipe);
     }
-
+    
+    public void enableDoubletap(boolean enableDoubletap){
+        this.dragPinchManager.enableDoubletap(enableDoubletap);
+    }
+    
     private void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
         this.onPageChangeListener = onPageChangeListener;
     }
@@ -984,6 +988,8 @@ public class PDFView extends SurfaceView {
 
         private boolean enableSwipe = true;
 
+	private boolean enableDoubletap = true ;
+
         private OnDrawListener onDrawListener;
 
         private OnLoadCompleteListener onLoadCompleteListener;
@@ -1013,7 +1019,12 @@ public class PDFView extends SurfaceView {
             this.enableSwipe = enableSwipe;
             return this;
         }
-
+        
+	public Configurator enableDoubletap(boolean enableDoubletap){
+            this.enableDoubletap = enableDoubletap ;
+            return this ;
+        }
+        
         public Configurator onDraw(OnDrawListener onDrawListener) {
             this.onDrawListener = onDrawListener;
             return this;
@@ -1055,6 +1066,7 @@ public class PDFView extends SurfaceView {
             PDFView.this.setOnDrawListener(onDrawListener);
             PDFView.this.setOnPageChangeListener(onPageChangeListener);
             PDFView.this.enableSwipe(enableSwipe);
+            PDFView.this.enableDoubletap(enableDoubletap);
             PDFView.this.setDefaultPage(defaultPage);
             PDFView.this.setUserWantsMinimap(showMinimap);
             PDFView.this.setSwipeVertical(swipeVertical);
